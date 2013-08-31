@@ -8,6 +8,8 @@ class BreweriesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @breweries }
     end
+
+
   end
 
   # GET /breweries/1
