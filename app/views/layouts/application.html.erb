@@ -4,11 +4,15 @@
   <title>Ratebeer</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <link href='http://fonts.googleapis.com/css?family=UnifrakturMaguntia' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="navi">
+  <%= link_to 'Breweries', breweries_path %>
+  <%= link_to 'Beers', beers_path %>
+</div>
 
 <%= yield %>
 
-</body>
-</html>
+</body></html>
