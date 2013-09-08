@@ -1,10 +1,11 @@
 Ratebeer::Application.routes.draw do
-  resources :beers
-  resources :breweries
-  match 'ratings' => 'ratings#index'
-
   root :to => 'breweries#index'
+  get 'kaikki_bisset', to: 'beers#index'
+  resources :ratings, :only => [:index, :new, :create, :destroy]
+  resources :beers
 
+
+  resources :breweries
 
 
   # The priority is based upon order of creation:
