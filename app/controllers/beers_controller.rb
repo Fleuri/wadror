@@ -25,6 +25,8 @@ class BeersController < ApplicationController
   # GET /beers/new.json
   def new
     @beer = Beer.new
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,8 +46,8 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
-        format.json { render json: @beer, status: :created, location: @beer }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
+        format.json { render json: beers_path, status: :created, location: @beers }
       else
         format.html { render action: "new" }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
