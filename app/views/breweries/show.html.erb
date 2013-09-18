@@ -11,6 +11,17 @@
 </p>
 
 <p>
+  <b>Rating average</b>
+<p>
+  <% if @brewery.ratings.empty? %>
+      No ratings available.
+  <% else %>
+      Average of <%= pluralize@brewery.ratings.count, "rating", "ratings" %>  was <%= @brewery.average_rating(@brewery.ratings) %>
+  <% end %>
+</p>
+</p>
+
+<p>
   <b>Number of products: <%= @brewery.beers.count %></b>
 </p>
 

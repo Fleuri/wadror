@@ -21,7 +21,7 @@
     <% if @beer.ratings.empty? %>
      No ratings available.
      <% else %>
-  Average of <%= pluralize@beer.ratings.count, "rating", "ratings" %>  was <%= @beer.average_rating %>
+  Average of <%= pluralize@beer.ratings.count, "rating", "ratings" %>  was <%= @beer.average_rating(@beer.ratings) %>
         <% end %>
     </p>
 </p>

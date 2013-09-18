@@ -11,7 +11,20 @@
 <div class="navi">
   <%= link_to 'Breweries', breweries_path %>
   <%= link_to 'Beers', beers_path %>
+
+
+
 </div>
+
+<% if not session[:user_id].nil? %>
+    <p><%= User.find(session[:user_id]).username %> signed in</p>
+<% end %>
+
+<% if session[:last_rating].nil? %>
+    <p>no ratings given</p>
+<% else %>
+    <p>previous rating: <%= session[:last_rating] %></p>
+<% end %>
 
 <%= yield %>
 
