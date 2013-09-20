@@ -1,13 +1,20 @@
 Ratebeer::Application.routes.draw do
-  resources :users
+
+
+
+  resources :beer_clubs
 
 
   root :to => 'breweries#index'
   get 'kaikki_bisset', to: 'beers#index'
   resources :ratings, :only => [:index, :new, :create, :destroy]
   resources :beers
+  resources :users
   get 'signup', to: 'users#new'
   resources :sessions, :only => [:new, :create, :destroy]
+  get 'signin', to: 'sessions#new'
+  delete 'signout', to: 'sessions#destroy'
+  match "/join/:id", :to => "beer_clubs#join", :as => "join"
 
 
   resources :breweries

@@ -89,7 +89,7 @@ class BreweriesController < ApplicationController
   private
 
   def authenticate
-    admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
+    admin_accounts = {"admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
 
     authenticate_or_request_with_http_basic do |username, password|
       admin_accounts[username] == password
