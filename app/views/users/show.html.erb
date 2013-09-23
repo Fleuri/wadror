@@ -4,20 +4,21 @@
   <h1><%= @user.username %></h1>
   </p>
 
-<td><b>I drink in these companies::</b> </td>
+<td><b>I drink in these companies:</b> </td>
 <% @user.beer_clubs.each do |f|%>
     <p> <%= link_to f.name, f %> </p>
 <% end %>
 <br/>
 
  <p>
-<td>Has given <%= pluralize@user.ratings.count, "rating", "ratings" %> ratings. <% if @user.ratings.count > 0 %> Average is <%= @user.average_rating(@user.ratings) %> points.<%end%></td>
+<td>Has given <%= pluralize@user.ratings.count, "rating", "ratings" %>. <% if @user.ratings.count > 0 %> Average is <%= @user.average_rating(@user.ratings) %> points.<%end%></td>
 </p>
 <td><b>Ratings:</b> </td>
 <% @user.ratings.each do |f|%>
-    <p> <%= link_to f.beer.name, f.beer %> Score: <%= f.score %> | <%= link_to 'Destroy', f, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <p> <%= link_to f.beer.name, f.beer %> Score: <%= f.score %> <% if currently_signed_in?(@user) %> | <%= link_to 'Destroy', f, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></p>
   <% end %>
       <br/>
-
+<% if currently_signed_in?(@user) %>
 <p><%= link_to 'Edit', edit_user_path %>   </p>
-
+<p><%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>   </p>
+<% end %>

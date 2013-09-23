@@ -2,6 +2,7 @@ class Beer < ActiveRecord::Base
 
   attr_accessible :brewery_id, :name, :style
 
+  validates :name, :presence => true
 
   include AverageRating
   belongs_to :brewery

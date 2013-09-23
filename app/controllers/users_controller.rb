@@ -36,6 +36,9 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    if not currently_signed_in? @user
+      redirect_to :root
+    end
   end
 
   # POST /users
@@ -60,7 +63,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if params[:user][:username].nil? and currently_signed_in? @user and @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -74,11 +77,17 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
+
+    if currently_signed_in?(@user)
+    session[:user_id] = nil
     @user.destroy
 
+    end
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to :root }
       format.json { head :no_content }
     end
+    end
+
   end
-end
+

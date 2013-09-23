@@ -2,7 +2,9 @@
 
 <ul>
   <% @ratings.each do |rating| %>
-      <li> <%= rating %> by <%= link_to rating.user.username, rating.user %> </li>
+      <li> <%= rating %> by <%= link_to rating.user.username, rating.user %>
+        <% if currently_signed_in?(rating.user) %>
+        <%= link_to 'delete', rating, :method => :delete, :data => { :confirm => 'Are you sure?' } %> <%end%> </li>
   <% end %>
 </ul>
 </ul>

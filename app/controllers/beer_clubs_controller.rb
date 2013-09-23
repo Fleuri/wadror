@@ -14,6 +14,11 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1.json
   def join
       @beer_club = BeerClub.find(params[:id])
+      if Membership.where(:beer_club_id => @beer_club.id, :user_id => current_user.id).exists?
+        respond_to do |format|
+                format.html { redirect_to :back, notice: "You are already a member of this club!" }
+          end
+      else
       @membership = Membership.create
       @membership.beer_club_id = @beer_club.id
       @membership.user_id = current_user.id
@@ -23,6 +28,7 @@ class BeerClubsController < ApplicationController
     else
       format.html { redirect_to :back, notice: "Something went awry! D:" }
     end
+        end
   end
            end
 

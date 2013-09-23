@@ -10,10 +10,10 @@ Ratebeer::Application.routes.draw do
   resources :ratings, :only => [:index, :new, :create, :destroy]
   resources :beers
   resources :users
-  get 'signup', to: 'users#new'
+  get '/signup', to: 'users#new'
   resources :sessions, :only => [:new, :create, :destroy]
-  get 'signin', to: 'sessions#new'
-  delete 'signout', to: 'sessions#destroy'
+  get '/signin', to: 'sessions#new'
+  delete '/signout', to: 'sessions#destroy'
   match "/join/:id", :to => "beer_clubs#join", :as => "join"
 
 

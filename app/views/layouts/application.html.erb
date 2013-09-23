@@ -16,12 +16,12 @@
   <a>|</a>
  <% if not current_user.nil? %>
       <%= link_to 'My Profile', current_user %>
-      <%= link_to 'Log out', 'signout', :method => :delete %>
+      <%= link_to 'Log out', '/signout', :method => :delete %>
       <%= link_to 'Rate a beer', new_rating_path %>
       <%= link_to 'Clubs', beer_clubs_path %>
       <% else %>
-        <%= link_to 'Log in', 'signin' %>
-        <%= link_to 'Register', 'signup' %>
+        <%= link_to 'Log in', '/signin' %>
+        <%= link_to 'Register', '/signup' %>
   <% end %>
 
   </div>
