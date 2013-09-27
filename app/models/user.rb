@@ -15,4 +15,15 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :beer_clubs, :through => :memberships
 
+  def favorite_beer
+    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    ratings.sort_by{ |r| r.score }.last.beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?
+    group_ratings = ratings.group_by { |rating| rating.beer.style}.
+    return group_ratings.max_by {|key, value| average_rating(value)}.first
+  end
+
 end
