@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   def favorite_style
     return nil if ratings.empty?
     group_ratings = ratings.group_by { |rating| rating.beer.style}.
-    return group_ratings.max_by {|key, value| average_rating(value)}.first
+    return group_ratings.max_by {|key, value| value.map(&:score).inject(average_rating(value))}.first
   end
 
 end
