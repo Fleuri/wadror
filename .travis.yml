@@ -1,14 +1,15 @@
 language: ruby
-
 rvm:
- - 1.9.3
-
+- 1.9.3
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -f d spec/
-
- deploy:
-   provider: heroku
-   api_key: df80a0e6-34db-4e0e-9188-90d909803bfb
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -f d spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: ibOcCzCucgRhp+n6BUZzcfVDvnICI8yrJag8ZRwvgGku3PKN3ybWZC/4GUD2vvJ94iMxAfdnb8ln8IxC8TpebBAmbvWASegcIB5gFBvy32DLHLPyO8ZZZsDt20FkA0JquFvhxw/t7lVmC2JSL/rpV6q0tna9E7eOlfIoT452O3g=
+  app: wadror
+  on:
+    repo: Fleuri/wadror
