@@ -2,7 +2,8 @@ class BreweriesController < ApplicationController
   # GET /breweries
   # GET /breweries.json
 
-  before_filter :authenticate, :only => [:new, :create, :destroy]
+  before_filter :ensure_that_signed_in, :except => [:index, :show]
+  before_filter :admin?, :only => [:destroy]
 
   def index
     @breweries = Brewery.all

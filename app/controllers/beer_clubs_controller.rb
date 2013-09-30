@@ -1,6 +1,9 @@
 class BeerClubsController < ApplicationController
   # GET /beer_clubs
   # GET /beer_clubs.json
+
+  before_filter :ensure_that_signed_in, :except => [:index, :show]
+
   def index
     @beer_clubs = BeerClub.all
 

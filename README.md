@@ -1,1 +1,2 @@
-[![Build Status](https://travis-ci.org/mluukkai/ratebeer.png)](https://travis-ci.org/Fleuri/wadror)
+[![Build Status](https://travis-ci.org/Fleuri/wadror.png)](https://travis-ci.org/Fleuri/wadror)
+[![Code Climate](https://codeclimate.com/github/Fleuri/wadror.png)](https://codeclimate.com/githubFleuri/wadror)

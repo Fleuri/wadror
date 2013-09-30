@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
 
+  before_filter :ensure_that_signed_in, :except => [:index, :new, :create]
+
   def index
     @users = User.all
 
