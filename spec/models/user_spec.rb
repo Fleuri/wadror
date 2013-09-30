@@ -82,29 +82,35 @@ describe User do
 
   end
 
-  describe "favourite style" do
+  describe "favourite brewery" do
     let(:user){FactoryGirl.create(:user) }
 
     it "has method for determining one" do
-      user.should respond_to :favorite_style
+      user.should respond_to :favorite_brewery
     end
 
     it "has no favourites without ratings" do
-      expect(user.favorite_style).to eq(nil)
+      expect(user.favorite_brewery).to eq(nil)
     end
 
-    it "with only one rating returns the style of the associated beer" do
-      beer = create_beer_with_rating(20, user)
-      expect(user.favorite_style).to eq(beer.style)
-    end
+    it "With many ratings returns the brewery of associated beers with best average rating" do
+      brewery1 = FactoryGirl.create(:brewery)
+      brewery2 = FactoryGirl.create(:brewery2)
+      beer1 = FactoryGirl.create(:beer, :brewery => brewery1)
+      beer2 = FactoryGirl.create(:beer2, :brewery => brewery2)
+      FactoryGirl.create(:rating, :beer => beer1, :user => user)
+      FactoryGirl.create(:rating2, :beer => beer1, :user => user)
+      FactoryGirl.create(:rating3, :beer => beer2, :user => user)
 
-
-    it "With many ratings returns the style of associated beers with best average rating" do
-      create_beers_with_ratings_and_styles([10, 5, 8, 10], ["Lager", "Lager", "Pilsner", "Pilsner"], user)
-      beer = create_beer_with_rating_and_style(12, "Pilsner", user)
-      expect(user.favorite_style).to eq(beer.style)
-    end
+      expect(user.favorite_brewery).to eq(brewery2)
+     end
   end
+
+
+
+
+
+
 
   def create_beers_with_ratings( *scores, user)
   scores.each do |score|
@@ -129,8 +135,8 @@ describe User do
   end
 
     def create_beer_with_rating_and_style(score, style, user)
-      beer = FactoryGirl.create(:beer)
-      beer.style = style
+      beer = Beer.new(:score => score, :style => style)
+      beer.save
       FactoryGirl.create(:rating, :score => score,  :beer => beer, :user => user)
       beer
     end

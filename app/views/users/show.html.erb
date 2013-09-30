@@ -8,14 +8,26 @@
 <% @user.beer_clubs.each do |f|%>
     <p> <%= link_to f.name, f %> </p>
 <% end %>
+<% if @user.ratings.count > 0 %>
 <br/>
+<td><b>My favourite beer is:</b> </td>
+<%= @user.favorite_beer.name %>
+<br/>
+<td><b>My favourite style of beer is:</b> </td>
+<%= @user.favorite_style%>
+<br/>
+<td><b>My favorite brewery is:</b> </td>
+<%= @user.favorite_brewery.name%>
+<br/>
+<%end%>
+
 
  <p>
 <td>Has given <%= pluralize@user.ratings.count, "rating", "ratings" %>. <% if @user.ratings.count > 0 %> Average is <%= @user.average_rating(@user.ratings) %> points.<%end%></td>
 </p>
 <td><b>Ratings:</b> </td>
 <% @user.ratings.each do |f|%>
-    <p> <%= link_to f.beer.name, f.beer %> Score: <%= f.score %> <% if currently_signed_in?(@user) %> | <%= link_to 'Destroy', f, method: :delete, data: { confirm: 'Are you sure?' } %><%end%></p>
+    <p> <%= link_to f.beer.name, f.beer %> Score: <%= f.score %> <% if currently_signed_in?(@user) %> | <%= link_to 'Delete', f, method: :delete %><%end%></p>
   <% end %>
       <br/>
 <% if currently_signed_in?(@user) %>

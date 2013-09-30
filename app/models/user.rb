@@ -16,14 +16,22 @@ class User < ActiveRecord::Base
   has_many :beer_clubs, :through => :memberships
 
   def favorite_beer
-    return nil if ratings.empty?   # palautetaan nil jos reittauksia ei ole
+    return nil if ratings.empty?
     ratings.sort_by{ |r| r.score }.last.beer
   end
 
   def favorite_style
     return nil if ratings.empty?
-    group_ratings = ratings.group_by { |rating| rating.beer.style}.
-    return group_ratings.max_by {|key, value| value.map(&:score).inject(average_rating(value))}.first
+    style_ratings = ratings.group_by { |rating| rating.beer.style}
+    style_rating = style_ratings.each_pair{|style, score| style_ratings[style] = score.sum(&:score) / score.size}
+    return style_ratings.sort_by{ |style, score| score}.last[0]
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+    brewery_ratings = ratings.group_by { |rating| rating.beer.brewery}
+    style_rating = brewery_ratings.each_pair{|brewery, score| brewery_ratings[brewery] = score.sum(&:score) / score.size}
+    return brewery_ratings.sort_by{ |brewery, score| score}.last[0]
   end
 
 end
