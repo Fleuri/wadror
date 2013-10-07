@@ -16,6 +16,9 @@ Ratebeer::Application.routes.draw do
   delete '/signout', to: 'sessions#destroy'
   match "/join/:id", :to => "beer_clubs#join", :as => "join"
 
+  resources :places, :only => [:index, :show]
+
+  post "places" => "places#search"
 
   resources :breweries
 

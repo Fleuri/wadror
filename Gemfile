@@ -7,11 +7,15 @@ gem 'rails', '3.2.13'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'
+  end
+
+group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', :require => false
+  gem 'webmock'
+  gem 'rspec-rails', '~> 2.0'
 end
 
 group :production do
@@ -35,6 +39,10 @@ gem 'jquery-rails'
 gem 'debugger', :group => :development
 
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'httparty'
+
+gem "rails-settings-cached", "0.2.4"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
