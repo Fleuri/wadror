@@ -1,1 +1,7 @@
-<%= @place.name %>
+<h1><%= @place.name %></h1>
+<%= @place.street %>
+<%= @place.zip %> <%= @place.city %> <%= @place.country %>
+
+<p></p>Score: <%= @score["overall"] %> </p>
+
+<p></p><iframe src=<%= @place.blogmap %> > <p>Map not currently available!</p> </iframe></p>

@@ -30,6 +30,13 @@ class BeermappingAPI
     Place.new(place)
   end
 
+  def self.score(id)
+    url = "http://beermapping.com/webservice/locscore/#{key}/#{id}"
+    response = HTTParty.get url
+    response.parsed_response["bmp_locations"]["location"]
+  end
+
+
   def self.key
     Settings.beermapping_apikey
   end

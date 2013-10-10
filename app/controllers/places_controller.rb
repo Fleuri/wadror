@@ -4,6 +4,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = BeermappingAPI.place(params[:id])
+    @score = BeermappingAPI.score(params[:id])
   end
 
   def search
