@@ -5,16 +5,15 @@ class BreweriesController < ApplicationController
   before_filter :ensure_that_signed_in, :except => [:index, :show]
   before_filter :admin?, :only => [:destroy]
 
-  def index
-    @breweries = Brewery.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @breweries }
+    def index
+      @breweries = Brewery.all.sort_by{ |b| b.send(params[:order] || 'name') }
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @beers }
+      end
     end
-
-
-  end
 
   # GET /breweries/1
   # GET /breweries/1.json
