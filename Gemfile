@@ -46,9 +46,14 @@ gem 'httparty'
 
 gem "rails-settings-cached", "0.2.4"
 
-gem 'therubyracer'
+=begin
+gem 'therubyracer', :platform => :ruby
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+=end
+
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

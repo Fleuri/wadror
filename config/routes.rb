@@ -24,6 +24,11 @@ Ratebeer::Application.routes.draw do
 
   get 'beerlist' => 'beers#list'
 
+  resources :breweries do
+    post 'toggle_activity', :on => :member
+  end
+
+  match "memberships/:id/confirm" => "beer_clubs#confirm_membership", :as => "confirm_membership"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

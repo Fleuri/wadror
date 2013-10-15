@@ -25,6 +25,11 @@ class BeerClubsController < ApplicationController
       @membership = Membership.create
       @membership.beer_club_id = @beer_club.id
       @membership.user_id = current_user.id
+      if @beer_club.memberships.count < 1
+      @membership.confirmed = true
+      else
+        @membership.confirmed = false
+        end
       respond_to do |format|
     if @membership.save
       format.html { redirect_to :back, notice: "You joined #{@beer_club.name}" }
@@ -33,7 +38,15 @@ class BeerClubsController < ApplicationController
     end
         end
   end
-           end
+  end
+
+  def confirm_membership
+    user = User.find(params[:id])
+    membership = Membership.where(:user_id => params[:id], :beer_club_id => self)
+    membership.confirmed = true
+    membership.save
+    redirect_to :back
+  end
 
   def show
 
@@ -68,8 +81,8 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
-        format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
-        format.json { render json: @beer_club, status: :created, location: @beer_club }
+        format.html { redirect_to join_path(@beer_club), notice: 'Beer club was successfully created.' }
+
       else
         format.html { render action: "new" }
         format.json { render json: @beer_club.errors, status: :unprocessable_entity }

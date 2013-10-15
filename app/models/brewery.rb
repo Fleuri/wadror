@@ -1,5 +1,8 @@
 class Brewery < ActiveRecord::Base
-  attr_accessible :name, :year
+  attr_accessible :name, :year, :active
+
+  scope :active, where(:active => true)
+  scope :retired, where(:active => [nil, false])
 
   include AverageRating
   has_many :beers
@@ -23,4 +26,18 @@ class Brewery < ActiveRecord::Base
     return (self.ratings.inject(0.0) { |result, rating | result + rating.score }) / self.ratings.size
   end
 =end
+
+  def self.top(n)
+
+    breweries_with_avg_rating = []
+    Brewery.all.each do |b|
+      if b.average_rating(b.ratings) > 0
+        breweries_with_avg_rating.push(b)
+      end
+    end
+
+    sorted_by_rating_in_desc_order = breweries_with_avg_rating.sort_by{ |b| -b.average_rating(b.ratings) }.first(n)
+
+  end
 end
+

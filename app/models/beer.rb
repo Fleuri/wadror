@@ -18,6 +18,19 @@ class Beer < ActiveRecord::Base
   end
 =end
 
+  def self.top(n)
+
+    beers_with_avg_rating = []
+    Brewery.all.each do |b|
+      if b.average_rating(b.ratings) > 0
+        beers_with_avg_rating.push(b)
+      end
+    end
+
+    sorted_by_rating_in_desc_order = beers_with_avg_rating.sort_by{ |b| -b.average_rating(b.ratings) }.first(n)
+
+  end
+
   def to_s
     return self.name + ": " + self.brewery.name
   end

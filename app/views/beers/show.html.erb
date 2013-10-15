@@ -21,11 +21,11 @@
     <% if @beer.ratings.empty? %>
      No ratings available.
      <% else %>
-  Average of <%= pluralize@beer.ratings.count, "rating", "ratings" %>  was <%= @beer.average_rating(@beer.ratings) %>
+  Average of <%= pluralize@beer.ratings.count, "rating", "ratings" %>  was <%= round(@beer.average_rating(@beer.ratings)) %>
         <% end %>
     </p>
 </p>
 
 
-<%= link_to 'Edit', edit_beer_path(@beer) %> |
+<%= edit_and_destroy_buttons(@beer) %>
 <%= link_to 'Back', beers_path %>

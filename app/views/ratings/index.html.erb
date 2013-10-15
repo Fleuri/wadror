@@ -1,10 +1,45 @@
 <h2>List of ratings</h2>
+<% if @ratings.count >0 %>
+Best breweries:
+
+    <ul>
+  <% Brewery.top(3).each do |brewery| %>
+      <li><%= brewery.name %></li>
+      <%end%>
+    </ul>
+
+    Best beers:
 
 <ul>
-  <% @ratings.each do |rating| %>
+  <% Beer.top(3).each do |beer| %>
+      <li><%= beer.name%></li>
+  <%end%>
+</ul>
+
+    Users with most ratings:
+
+    <ul>
+      <% User.topRaters(3).each do |user| %>
+          <li><%= user.username %></li>
+      <%end%>
+    </ul>
+
+    Most recent ratings:
+
+    <ul>
+      <% Rating.recent.each do |brewery| %>
+          <li><%= brewery %></li>
+      <%end%>
+    </ul>
+
+<%end%>
+
+<ul>
+ <% @ratings.each do |rating| %>
       <li> <%= rating %> by <%= link_to rating.user.username, rating.user %>
         <% if currently_signed_in?(rating.user) %>
         <%= link_to 'delete', rating, :method => :delete, :data => { :confirm => 'Are you sure?' } %> <%end%> </li>
   <% end %>
 </ul>
 </ul>
+

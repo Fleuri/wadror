@@ -34,4 +34,20 @@ class User < ActiveRecord::Base
     return brewery_ratings.sort_by{ |brewery, score| score}.last[0]
   end
 
+  def self.topRaters(n)
+    sorted_by_rating_in_desc_order = User.all.sort_by{ |b| -b.ratings.count }
+    ## palauta listalta parhaat n kappaletta
+  end
+
+  def member_of(club)
+    m = Membership.where(:user_id => self.id, :beer_club_id => club.id).first.confirmed?
+    if beer_clubs.include? club
+      if m
+        return true
+      end
+    end
+    return false
+  end
 end
+
+
